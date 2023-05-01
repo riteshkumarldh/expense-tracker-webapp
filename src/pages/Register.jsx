@@ -1,10 +1,24 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useFirebase } from "../context/firebaseContext";
 
 const Register = () => {
+  const { createUser, signInWithGoogle, user } = useFirebase();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUser(email, password, userName);
+  };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [navigate, user]);
 
   return (
     <section className="lg:grid lg:grid-cols-2 lg:gap-5">
@@ -29,7 +43,7 @@ const Register = () => {
           <h1 className="font-medium text-4xl mb-1">Hello!!</h1>
           <p className="text-sm font-normal">Signup to get Started</p>
         </div>
-        <form onSubmit={console.log("")}>
+        <form onSubmit={handleSubmit}>
           <div className="h-10 relative rounded overflow-hidden">
             <input
               className="h-full w-full pl-8 pr-2 placeholder:text-gray-400 outline-none border border-blue-400 focus:border-2 rounded transition-all"
@@ -80,7 +94,7 @@ const Register = () => {
         <p className="my-5 text-center uppercase font-bold">or</p>
         <button
           className=" bg-red-500 text-red-100 py-4 rounded-md font-medium uppercase"
-          onClick={console.log("")}
+          onClick={() => signInWithGoogle()}
         >
           Signin With Google
         </button>

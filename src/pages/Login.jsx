@@ -1,9 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// custom hook for using context
+import { useFirebase } from "../context/firebaseContext";
 
 const Login = () => {
+  const { signInWithGoogle, LogInWithEmailAndPassword, user } = useFirebase();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    LogInWithEmailAndPassword(email, password);
+    setEmail("");
+    setPassword("");
+    navigate("/dashboard");
+  };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [navigate, user]);
 
   return (
     <section className="lg:grid lg:grid-cols-2 lg:gap-5">
@@ -26,9 +45,9 @@ const Login = () => {
         </h2>
         <div className="mb-5">
           <h1 className="font-medium text-4xl mb-1">Welcome back !!</h1>
-          <p className="text-sm font-normal">Login to Add your todos</p>
+          <p className="text-sm font-normal">Login to Add your Expenses</p>
         </div>
-        <form onSubmit={console.log("")}>
+        <form onSubmit={handleLogin}>
           <div className="h-10 relative my-5 rounded overflow-hidden">
             <input
               className="h-full pl-8 pr-2 placeholder:text-gray-400 w-full outline-none border border-blue-400 focus:border-2 rounded transition-all"
@@ -67,7 +86,7 @@ const Login = () => {
         <p className="my-5 text-center uppercase font-bold">or</p>
         <button
           className=" bg-red-500 text-red-100 py-4 rounded-md font-medium uppercase"
-          onClick={console.log("")}
+          onClick={() => signInWithGoogle()}
         >
           signin With Google
         </button>
