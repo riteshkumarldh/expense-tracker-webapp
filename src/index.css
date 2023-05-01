@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.logo {
+  font-family: "Bruno Ace SC", cursive;
+}
+
+.unset {
+  @media (min-width: 1024px) {
+    all: unset;
+  }
+}
