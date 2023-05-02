@@ -11,3 +11,16 @@
     all: unset;
   }
 }
+
+.animation {
+  animation: shift 0.2s linear forwards;
+}
+
+@keyframes shift {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: none;
+  }
+}

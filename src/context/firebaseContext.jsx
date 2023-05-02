@@ -14,8 +14,6 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-// fireStore
-import { getFirestore } from "firebase/firestore";
 
 // my firebase config
 const firebaseConfig = {
@@ -30,7 +28,6 @@ const firebaseConfig = {
 // firebase initialization
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 // creating context
@@ -47,7 +44,7 @@ const FirebaseProvider = ({ children }) => {
       setLoading(true);
       if (user) {
         setUser(user);
-        console.log(user);
+        // console.log(user);
         setLoading(false);
       } else {
         setUser(null);
@@ -111,6 +108,31 @@ const FirebaseProvider = ({ children }) => {
     }
   };
 
+  // pushing
+  const allTransactions = [];
+  const addTransactions = (amount, source, type, id) => {
+    const details = {
+      id,
+      amount,
+      source,
+      type,
+    };
+    allTransactions.push(details);
+    localStorage.setItem("wallet", JSON.stringify(allTransactions));
+  };
+
+  // totalling
+  const [income, setIncome] = useState(0);
+  useEffect(() => {
+    const arr = JSON.parse(localStorage.getItem("wallet"));
+    arr.forEach((item) => {
+      console.log(item);
+      if (item.type === "Income") {
+        setIncome((prev) => (prev += +item.amount));
+      }
+    });
+  }, []);
+
   // we will provide these values in our context
   const firebaseProvider = {
     user,
@@ -119,6 +141,7 @@ const FirebaseProvider = ({ children }) => {
     LogInWithEmailAndPassword,
     logOutUser,
     loading,
+    addTransactions,
   };
 
   return (

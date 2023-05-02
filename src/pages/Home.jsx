@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 // components
 import FeatureGrid from "../components/FeatureGrid";
 import HeroSection from "../components/HeroSection";
