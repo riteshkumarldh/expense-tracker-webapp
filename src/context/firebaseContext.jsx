@@ -108,30 +108,84 @@ const FirebaseProvider = ({ children }) => {
     }
   };
 
-  // pushing
-  const allTransactions = [];
+  const [wallet, setWallet] = useState(
+    () => JSON.parse(localStorage.getItem("wallet")) || []
+  );
+  const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState("");
+
+  // adding expenses and incomes in wallet
   const addTransactions = (amount, source, type, id) => {
-    const details = {
-      id,
-      amount,
-      source,
-      type,
-    };
-    allTransactions.push(details);
-    localStorage.setItem("wallet", JSON.stringify(allTransactions));
+    // adding new transactions
+    if (!editMode) {
+      const details = {
+        id,
+        amount,
+        source,
+        type,
+      };
+      setWallet((prev) => [details, ...prev]);
+    } else {
+      // editing the transactions
+      setEditMode(false);
+      const newArr = [...wallet];
+      newArr.forEach((item) => {
+        if (item.id === editId) {
+          item.amount = amount;
+          item.source = source;
+        }
+      });
+      setWallet(newArr);
+    }
   };
 
-  // totalling
+  const [openModal, setOpenModal] = useState(null);
+  const [modal, setModal] = useState(false);
+
   const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [balance, setBalance] = useState(0);
+
   useEffect(() => {
-    const arr = JSON.parse(localStorage.getItem("wallet"));
-    arr.forEach((item) => {
-      console.log(item);
-      if (item.type === "Income") {
-        setIncome((prev) => (prev += +item.amount));
-      }
-    });
-  }, []);
+    localStorage.setItem("wallet", JSON.stringify(wallet));
+    // calculating totals
+    const getTotals = () => {
+      if (wallet.length === 0) return;
+      let totalIncome = 0;
+      let totalExpense = 0;
+      wallet.forEach((item) => {
+        if (item.type === "Income") {
+          totalIncome += +item.amount;
+          setIncome(totalIncome);
+        }
+        if (item.type === "Expense") {
+          totalExpense += +item.amount;
+          setIncome(totalExpense);
+        }
+      });
+      setIncome(totalIncome);
+      setExpense(totalExpense);
+      setBalance(totalIncome - totalExpense);
+    };
+    getTotals();
+  }, [wallet]);
+
+  // deleting transactions
+  const handleDelete = (id) => {
+    setWallet((prev) =>
+      prev.filter((transaction) => {
+        return transaction.id !== id;
+      })
+    );
+  };
+
+  // edit transaction
+  const handleEdit = (id, type) => {
+    setEditMode(true);
+    setEditId(id);
+    setOpenModal(type);
+    setModal(true);
+  };
 
   // we will provide these values in our context
   const firebaseProvider = {
@@ -142,6 +196,19 @@ const FirebaseProvider = ({ children }) => {
     logOutUser,
     loading,
     addTransactions,
+    wallet,
+    setWallet,
+    income,
+    expense,
+    balance,
+    handleDelete,
+    setEditMode,
+    setEditId,
+    openModal,
+    setOpenModal,
+    modal,
+    setModal,
+    handleEdit,
   };
 
   return (

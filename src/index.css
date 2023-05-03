@@ -6,8 +6,8 @@
   font-family: "Bruno Ace SC", cursive;
 }
 
-.unset {
-  @media (min-width: 1024px) {
+@media (min-width: 1024px) {
+  .unset {
     all: unset;
   }
 }
@@ -22,5 +22,15 @@
   }
   100% {
     transform: none;
+  }
+}
+
+.setgrid {
+  grid-template-columns: 2fr 1fr 0.5fr;
+}
+
+@media (min-width: 640px) {
+  .setgrid {
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
   }
 }

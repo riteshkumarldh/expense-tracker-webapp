@@ -7,24 +7,23 @@ import ModalForm from "../components/ModalForm";
 import BalanceCards from "../components/BalanceCards";
 
 const Dashboard = () => {
-  const { loading, user, addTransactions } = useFirebase();
-  const [openModal, setOpenModal] = useState(null);
-  const [modal, setModal] = useState(false);
+  const {
+    loading,
+    user,
+    addTransactions,
+    wallet,
+    openModal,
+    setOpenModal,
+    modal,
+    setModal,
+  } = useFirebase();
+
   const [budget, setBudget] = useState("");
-
-  const [wallet, setWallet] = useState(
-    () => JSON.parse(localStorage.getItem("wallet")) || []
-  );
-
-  useEffect(() => {
-    setWallet(JSON.parse(localStorage.getItem("wallet")) || []);
-  }, []);
 
   const handleSetBudget = (e) => {
     e.preventDefault();
     if (!budget) return;
     addTransactions(budget, "Initial Budget", "Income", Date.now());
-    setWallet(JSON.parse(localStorage.getItem("wallet")) || []);
     setBudget("");
   };
 
@@ -69,7 +68,7 @@ const Dashboard = () => {
             wallet={wallet}
           />
 
-          <RecentTransactions />
+          <RecentTransactions setOpenModal={setOpenModal} setModal={setModal} />
         </section>
       )}
 
