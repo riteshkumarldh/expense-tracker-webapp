@@ -49,7 +49,7 @@ const FirebaseProvider = ({ children }) => {
       } else {
         setUser(null);
         setLoading(false);
-        console.log(user);
+        // console.log(user);
       }
     });
   }, [user]);
