@@ -1,4 +1,3 @@
-import { useState } from "react";
 // components
 import FeatureGrid from "../components/FeatureGrid";
 import HeroSection from "../components/HeroSection";
@@ -8,19 +7,8 @@ import ContactSection from "../components/ContactSection";
 import homeImg1 from "../assets/images/home-1.png";
 import homeImg2 from "../assets/images/home-2.png";
 import homeImg3 from "../assets/images/home-3.png";
-import contactImg from "../assets/images/contact.png";
 
 const Home = () => {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(email);
-    setEmail("");
-    alert("submitted");
-  };
-
   return (
     <main className="overflow-hidden">
       {/* hero section */}
@@ -89,10 +77,10 @@ const Home = () => {
 
       {/* contact section */}
       <ContactSection
-        contactImg={contactImg}
-        handleSubmit={handleSubmit}
-        email={email}
-        setEmail={setEmail}
+      // contactImg={contactImg}
+      // handleSubmit={handleSubmit}
+      // email={email}
+      // setEmail={setEmail}
       />
     </main>
   );

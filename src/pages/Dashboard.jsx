@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFirebase } from "../context/firebaseContext";
 
 // components
 import RecentTransactions from "../components/RecentTransactions";
 import ModalForm from "../components/ModalForm";
 import BalanceCards from "../components/BalanceCards";
+import ExpenseGraph from "../components/ExpenseGraph";
 
 const Dashboard = () => {
   const {
@@ -67,6 +68,7 @@ const Dashboard = () => {
             setOpenModal={setOpenModal}
             wallet={wallet}
           />
+          <ExpenseGraph />
 
           <RecentTransactions setOpenModal={setOpenModal} setModal={setModal} />
         </section>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ModalForm from "../components/ModalForm";
 import { useFirebase } from "../context/firebaseContext";
+import ExpenseGraph from "../components/ExpenseGraph";
 
 const Transactions = () => {
   const {

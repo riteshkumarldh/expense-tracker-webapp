@@ -5,7 +5,7 @@ const RecentTransactions = () => {
   const { wallet, handleDelete, handleEdit } = useFirebase();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-center lg:gap-5">
+    <div className="grid grid-cols-1 lg:items-center lg:gap-5">
       <div className="bg-white mt-10 rounded-xl">
         <div className="py-5 px-1 md:px-4">
           <h2 className="text-center uppercase text-lg font-semibold md:text-xl">
@@ -61,18 +61,6 @@ const RecentTransactions = () => {
           <span className="font-medium">See All</span>
           <i className="bx bx-right-arrow-alt font-bold"></i>
         </Link>
-      </div>
-
-      <div className="mt-10 flex flex-col gap-3">
-        <div className="h-10 w-full bg-green-300 text-green-50 flex items-center px-3 border-green-300">
-          Income
-        </div>
-        <div className="h-10 w-[40%] bg-red-300 text-red-50 flex items-center px-3 border-red-300">
-          Expense
-        </div>
-        <div className="h-10 w-full bg-yellow-300 text-yellow-50 flex items-center px-3 border-yellow-300">
-          Balance
-        </div>
       </div>
     </div>
   );

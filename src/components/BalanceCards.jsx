@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useFirebase } from "../context/firebaseContext";
 
 const BalanceCards = ({ setOpenModal, setModal }) => {

@@ -1,4 +1,15 @@
-const ContactSection = ({ contactImg, handleSubmit, email, setEmail }) => {
+import { useState } from "react";
+import contactImg from "../assets/images/contact.png";
+const ContactSection = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(email);
+    setEmail("");
+    alert("submitted");
+  };
   return (
     <section>
       <div className="container mx-auto px-4 py-16 grid gap-8 lg:grid-cols-2 lg:items-center">
