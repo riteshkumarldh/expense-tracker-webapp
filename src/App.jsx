@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import About from "./pages/About";
-import Error from "./pages/error";
+import Error from "./pages/Error";
 import Transactions from "./pages/Transactions";
 
 // components
