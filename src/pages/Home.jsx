@@ -76,12 +76,7 @@ const Home = () => {
       </section>
 
       {/* contact section */}
-      <ContactSection
-      // contactImg={contactImg}
-      // handleSubmit={handleSubmit}
-      // email={email}
-      // setEmail={setEmail}
-      />
+      <ContactSection />
     </main>
   );
 };
